@@ -1,36 +1,32 @@
 import pytest
-from skill_scribe import CodeAnalysisEngine, CodeAnalysisResult
+from skill_scribe import SkillScribe, SkillGap, Resource
 
-def test_fetch_latest_commit():
-    engine = CodeAnalysisEngine([])
-    repo_url = "https://github.com/example/repo"
-    latest_commit = engine.fetch_latest_commit(repo_url)
-    assert latest_commit == "latest_commit"
+def test_get_roadmap():
+    code_gaps = ["python", "javascript"]
+    skill_scribe = SkillScribe(code_gaps)
+    roadmap = skill_scribe.get_roadmap()
+    assert len(roadmap) == 2
+    assert len(roadmap[0].resources) == 5
+    assert len(roadmap[1].resources) == 5
 
-def test_parse_and_score_code():
-    engine = CodeAnalysisEngine([])
-    code = "example_code"
-    results = engine.parse_and_score_code(code)
-    assert isinstance(results, CodeAnalysisResult)
-    assert results.score == 0.5
-    assert results.metrics == {"metric1": 0.2, "metric2": 0.3}
+def test_update_roadmap():
+    code_gaps = ["python", "javascript"]
+    skill_scribe = SkillScribe(code_gaps)
+    new_code_gaps = ["java", "c++"]
+    updated_roadmap = skill_scribe.update_roadmap(new_code_gaps)
+    assert len(updated_roadmap) == 2
+    assert len(updated_roadmap[0].resources) == 5
+    assert len(updated_roadmap[1].resources) == 5
 
-def test_store_results_in_diagnostics_table():
-    engine = CodeAnalysisEngine([])
-    results = CodeAnalysisResult(0.5, {"metric1": 0.2, "metric2": 0.3})
-    engine.store_results_in_diagnostics_table(results)
-    # No assertion, just checking that it runs without errors
+def test_get_roadmap_empty_code_gaps():
+    code_gaps = []
+    skill_scribe = SkillScribe(code_gaps)
+    roadmap = skill_scribe.get_roadmap()
+    assert len(roadmap) == 0
 
-def test_analyze_code():
-    engine = CodeAnalysisEngine([])
-    repo_url = "https://github.com/example/repo"
-    results = engine.analyze_code(repo_url)
-    assert isinstance(results, CodeAnalysisResult)
-    assert results.score == 0.5
-    assert results.metrics == {"metric1": 0.2, "metric2": 0.3}
-
-def test_analyze_code_with_empty_repo_url():
-    engine = CodeAnalysisEngine([])
-    repo_url = ""
-    with pytest.raises(SystemExit):
-        engine.analyze_code(repo_url)
+def test_update_roadmap_empty_code_gaps():
+    code_gaps = ["python", "javascript"]
+    skill_scribe = SkillScribe(code_gaps)
+    new_code_gaps = []
+    updated_roadmap = skill_scribe.update_roadmap(new_code_gaps)
+    assert len(updated_roadmap) == 0
