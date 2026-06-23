@@ -1,10 +1,12 @@
-# Skill Scribe
-A personalized learning roadmap that recommends resources based on your code gaps.
+# Remediation Tracker
+A simple remediation tracker implemented in Python.
 
 ## Usage
-1. Create a `SkillScribe` object with a list of code gaps.
-2. Call the `get_roadmap` method to get a list of `SkillGap` objects, each containing a list of resources.
-3. Call the `update_roadmap` method to update the roadmap with new code gaps.
+1. Create a new instance of the `RemediationTracker` class.
+2. Add remediation tasks using the `add_task` method.
+3. Update the completion status of tasks using the `update_task_status` method.
+4. Get the progress of all tasks using the `get_progress` method.
+5. Get notifications for completed tasks using the `get_notifications` method.
 
 ## Testing
-Run `pytest` to run the tests.
+Run the tests using `pytest`:

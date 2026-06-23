@@ -6,7 +6,7 @@ from typing import List
 class RemediationTask:
     id: int
     name: str
-    completion_status: bool = False
+    completion_status: bool
 
 class RemediationTracker:
     def __init__(self):
@@ -21,7 +21,7 @@ class RemediationTracker:
             if task.id == task_id:
                 task.completion_status = completion_status
                 if completion_status:
-                    self.notifications.append(f"Task {task.name} completed")
+                    self.notifications.append(f"Task {task_id} completed")
 
     def get_progress(self):
         total_tasks = len(self.tasks)
